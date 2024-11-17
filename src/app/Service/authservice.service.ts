@@ -22,4 +22,7 @@ export class AuthserviceService {
     debugger
     return this.http.post(`${this.baseurl}${url}`, data);  
   }
+  exportexcel(url: any): Observable<Blob> {
+    return this.http.post(`${this.baseurl}${url}`,{}, { responseType: 'blob' });
+  }
 }
