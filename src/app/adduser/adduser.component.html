@@ -1,0 +1,49 @@
+<div class="shadow-lg custom-container mt-4 rounded">
+    <div class="bg-primary rounded p-3">
+        <span class="fw-bold h4 ms-3 text-white">Add User</span>
+    </div>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="row p-4">
+            <div class="col-lg-4">
+                <span class="fw-bold">Employee Name</span>
+                <input type="text" class="form-control mt-2" formControlName="user_name">
+            </div>
+            <div class="col-lg-4">
+                <span class="fw-bold">Email</span>
+                <input type="email" class="form-control mt-2" formControlName="Email">
+            </div>
+            <div class="col-lg-4">
+                <span class="fw-bold">Phone</span>
+                <input type="text" class="form-control mt-2" formControlName="PhoneNo">
+            </div>
+        </div>
+        <div class="row p-4">
+            <div class="col-lg-4">
+                <span class="fw-bold">Name</span>
+                <input class="form-control mt-2" formControlName="Name"/>
+            </div>
+            <div class="col-lg-4">
+                <span class="fw-bold">Password</span>
+                <input type="password" class="form-control mt-2" formControlName="password">
+            </div>
+            <div class="col-lg-4">
+                <span class="fw-bold">Confirm Password</span>
+                <input type="password" class="form-control mt-2" formControlName="Hashed_password" >
+            </div>
+        </div>
+        <div class="row p-4">
+            <div class="col-lg-4">
+                <span class="fw-bold">User Type</span>
+                <select class="form-control mt-2" formControlName="user_type">
+                  <option value="" disabled>Select Status</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Employee">Employee</option>
+                </select>
+              </div>
+        </div>
+        <div class="text-center p-4">
+            <button class="btn btn-success fw-bold" >Submit</button>
+            <button class="btn btn-danger fw-bold ms-3" (click)="OnClose()">Close</button>
+        </div>
+    </form>
+</div>
