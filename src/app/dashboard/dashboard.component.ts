@@ -65,26 +65,35 @@ export class DashboardComponent {
     })
   }
   chart(){
-    var options = {
-      series: [40, 50,10],
-      chart: {
-      type: 'donut',
-    },
-    responsive: [{
-      breakpoint: 480,
-      options: {
+    var url = 'Task/TaskCount';
+    this.service.get(url).subscribe((response: any[]) => {
+      const totalCount = response.find((item) => item.taskType === "Total")?.count || 0;
+      const openCount = response.find((item) => item.taskType === "Open")?.count || 0;
+      const closeCount = response.find((item) => item.taskType === "Close")?.count || 0;
+    
+      var options = {
+        series: [totalCount, openCount, closeCount], 
         chart: {
-          width: 200
+          type: 'donut',
         },
-        legend: {
-          position: 'bottom'
-        }
-      }
-    }]
-    };
-
-    var chart = new ApexCharts(document.querySelector("#chart"), options);
-    chart.render();
+        labels: ["Total Tasks", "Open Tasks", "Closed Tasks"], 
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+      };
+    
+      var chart = new ApexCharts(document.querySelector("#chart"), options);
+      chart.render();
+    });
+    
   }
   addtask(){
     this.route.navigate(['/AddTask']);
@@ -97,6 +106,17 @@ export class DashboardComponent {
   }
 
   export_excel(){
-    console.log(this.users)
+    var url ='Task/ExportTask'
+    this.service.exportexcel(url).subscribe((excel: any)=>{
+      const blob = excel;
+      const url = window.URL.createObjectURL(blob); 
+      const a = document.createElement('a'); 
+      a.style.display = 'none'; 
+      a.href = url; 
+      a.download = 'Tasks.xlsx'; 
+      document.body.appendChild(a); 
+      a.click();
+      window.URL.revokeObjectURL(url);
+    })
   }
 }
